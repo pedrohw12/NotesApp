@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Page, Item, ItemText, Listagem } from './styles/styles';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 import lista from './lista';
 import ListaItem from './components/ListaItem';
 import AddItemArea from './components/AddItemArea';
+import ListaItemSwipe from './components/ListaItemSwipe';
 
 import uuid from 'uuid/v4';
 
@@ -26,12 +28,22 @@ export default () => {
     setItems(newItems);
   }
 
+  const deleteItem = (index) => {
+    let newItems = [...items];
+    newItems = newItems.filter((it, i)=>i != index);
+    setItems(newItems);
+  }
+
   return (
   <Page>
     <AddItemArea onAdd={addNewItem} />
-    <Listagem 
+    <SwipeListView 
       data={items}
       renderItem={({item, index}) => <ListaItem onPress={() => toggleDone(index)} data={item} /> }
+      renderHiddenItem={({item, index})=><ListaItemSwipe onDelete={()=>deleteItem(index)} />}
+      leftOpenValue={50}
+      disableLeftSwipe={true}  
+
       keyExtractor={(item)=>item.id}
     />
   </Page>
