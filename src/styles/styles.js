@@ -13,6 +13,7 @@ export const ItemCheck = styled.View`
   height: 20px;
   border-radius: 10px;
   border: 5px solid #CCC;
+  background-color: ${props => props.done?'red':'#4cd137'};
 `;
 
 export const Item = styled.TouchableOpacity`
