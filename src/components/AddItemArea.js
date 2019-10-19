@@ -1,22 +1,14 @@
 import React, { useState } from 'react';
 import { AddItemArea, AddItemInput } from '../styles/styles';
-import uuid from 'uuid/v4';
 
 export default (props) => {
   const [ item, setItem ] = useState('');
 
   const handleSubmit = () => {
     if (item.trim() != '') {
-      let items = [...props.items];
-      items.push({
-        id:uuid(),
-        task:item.trim(),
-        done:false
-      });
-      props.setItems(items);
+      props.onAdd(item.trim());
+      setItem('');
     }
-
-    setItem('');
 }
 
   return (
